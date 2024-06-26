@@ -1,0 +1,1 @@
+primary_conninfo = 'host=10.81.1.194 port=6432 user=replicator password=ciscoreplLogin123'

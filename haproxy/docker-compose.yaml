@@ -1,0 +1,73 @@
+configs:
+  haproxy:
+    file: ./haproxy.cfg
+  primary-check:
+    file: ./primary-check.sh
+services:
+  haproxy-1:
+    image: hap-with-psql:latest
+    ports:
+      - 3001:3000
+      - 11121:5432
+    privileged: true
+    configs:
+      - source: haproxy
+        target: /usr/local/etc/haproxy/haproxy.cfg
+      - source: primary-check
+        target: /primary-check.sh
+  haproxy-2:
+    image: hap-with-psql:latest
+    ports:
+      - 3002:3000
+      - 11122:5432
+    privileged: true
+    configs:
+      - source: haproxy
+        target: /usr/local/etc/haproxy/haproxy.cfg
+      - source: primary-check
+        target: /primary-check.sh
+  haproxy-3:
+    image: hap-with-psql:latest
+    ports:
+      - 3003:3000
+      - 11123:5432
+    privileged: true
+    configs:
+      - source: haproxy
+        target: /usr/local/etc/haproxy/haproxy.cfg
+      - source: primary-check
+        target: /primary-check.sh
+  haproxy-4:
+    image: hap-with-psql:latest
+    ports:
+      - 3004:3000
+      - 11124:5432
+    privileged: true
+    configs:
+      - source: haproxy
+        target: /usr/local/etc/haproxy/haproxy.cfg
+      - source: primary-check
+        target: /primary-check.sh
+  haproxy-5:
+    image: hap-with-psql:latest
+    ports:
+      - 3005:3000
+      - 11125:5432
+    privileged: true
+    configs:
+      - source: haproxy
+        target: /usr/local/etc/haproxy/haproxy.cfg
+      - source: primary-check
+        target: /primary-check.sh
+  haproxy-6:
+    image: hap-with-psql:latest
+    ports:
+      - 3007:3000
+      - 11127:5432
+    privileged: true
+    configs:
+      - source: haproxy
+        target: /usr/local/etc/haproxy/haproxy.cfg
+      - source: primary-check
+        target: /primary-check.sh
+

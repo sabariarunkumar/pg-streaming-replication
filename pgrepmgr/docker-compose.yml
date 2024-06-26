@@ -1,0 +1,83 @@
+version: '3.9'
+
+networks:
+  default:
+    name: custom-pg-repmgr
+    driver: bridge
+volumes:
+  custom_pg_0_data:
+  custom_pg_1_data:
+  custom_pg_2_data:
+  custom_pg_3_data:
+  custom_pg_4_data:
+    
+x-version-common:
+  &service-common
+  image: custom-pg-repmgr:2
+  restart: always
+
+x-common-env:
+  &common-env
+  REPMGR_PASSWORD: repmgr
+  REPMGR_PARTNER_NODES: custom-pg-0,custom-pg-1:5432,custom-pg-2:5432,custom-pg-3:5432,custom-pg-4:5432
+  REPMGR_PORT_NUMBER: 5432
+  REPMGR_PRIMARY_HOST: custom-pg-0
+  REPMGR_PRIMARY_PORT: 5432
+  POSTGRESQL_POSTGRES_PASSWORD: postgres
+  POSTGRESQL_USERNAME: docker
+  POSTGRESQL_PASSWORD: docker
+  POSTGRESQL_DATABASE: docker
+  POSTGRESQL_SHARED_PRELOAD_LIBRARIES: pgaudit, pg_stat_statements
+  POSTGRESQL_SYNCHRONOUS_COMMIT_MODE: remote_write
+
+services:
+  custom-pg-0:
+    <<: *service-common
+    volumes:
+      - custom_pg_0_data:/bitnami/postgresql
+    ports:
+      - "8433:5432" 
+    environment:
+      <<: *common-env
+      REPMGR_NODE_NAME: custom-pg-0
+      REPMGR_NODE_NETWORK_NAME: custom-pg-0
+  custom-pg-1:
+    <<: *service-common
+    ports:
+      - "9433:5432" 
+    volumes:
+      - custom_pg_1_data:/bitnami/postgresql
+    environment:
+      <<: *common-env
+      REPMGR_NODE_NAME: custom-pg-1
+      REPMGR_NODE_NETWORK_NAME: custom-pg-1
+  custom-pg-2:
+    <<: *service-common
+    ports:
+      - "10433:5432" 
+    volumes:
+      - custom_pg_2_data:/bitnami/postgresql
+    environment:
+      <<: *common-env
+      REPMGR_NODE_NAME: custom-pg-2
+      REPMGR_NODE_NETWORK_NAME: custom-pg-2
+  custom-pg-3:
+    <<: *service-common
+    ports:
+      - "11433:5432" 
+    volumes:
+      - custom_pg_3_data:/bitnami/postgresql
+    environment:
+      <<: *common-env
+      REPMGR_NODE_NAME: custom-pg-3
+      REPMGR_NODE_NETWORK_NAME: custom-pg-3
+  custom-pg-4:
+    <<: *service-common
+    ports:
+      - "12433:5432" 
+    volumes:
+      - custom_pg_4_data:/bitnami/postgresql
+    environment:
+      <<: *common-env
+      REPMGR_NODE_NAME: custom-pg-4
+      REPMGR_NODE_NETWORK_NAME: custom-pg-4
