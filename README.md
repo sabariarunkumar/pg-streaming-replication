@@ -1,2 +1,2 @@
 # pg-streaming-replication
-Postgres Streaming Replication Support
+The repo have set of tools, customized with set of failover scripts which is ought to support to high availablity in Production Postgresql Failover
